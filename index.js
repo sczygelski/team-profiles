@@ -1,7 +1,8 @@
 const Manager = require("./tests/manager.test")
 const Engineer = require("./tests/engineer.test")
 const Intern = require("./tests/intern.test")
-
+const template = require('./src/template')
+const renderEmployees = require("./src/team.html")
 const inquirer = require('inquirer')
 const fs = require('fs')
 
@@ -140,5 +141,18 @@ function addIntern () {
     })
 }
 
-function renderHTML()
+function renderHTML(data) {
+    fs.writeFile("./dist/employees.html", JSON.stringify(data), function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log('HTML has been created, go to the dist folder for file.')
+        }
+    })
+}
 
+function init() {
+    inquirer.prompt(start).then(data => {
+        fs.writeFile('team.html', renderHTML(data))
+    })
+}
