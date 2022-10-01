@@ -1,7 +1,7 @@
 const Manager = require("./tests/manager.test")
 const Engineer = require("./tests/engineer.test")
 const Intern = require("./tests/intern.test")
-const template = require('./src/template')
+const template = require('./src/template.js')
 const renderEmployees = require("./src/team.html")
 const inquirer = require('inquirer')
 const fs = require('fs')
@@ -102,11 +102,11 @@ function addEngineer() {
         },
         {
             type: 'input',
-            name: 'engineeroffice',
-            message: 'What is the office number of the employee?'
+            name: 'engineergithub',
+            message: 'What is the GitHub username of the employee?'
         }
     ]).then(answer => {
-        const engineer = newengineer(answer.engineername, answer.engineerid, answer.engineeremail, answer.engineeroffice)
+        const engineer = newengineer(answer.engineername, answer.engineerid, answer.engineeremail, answer.engineergithub)
         employees.push(engineer);
         start()
     })
@@ -131,11 +131,11 @@ function addIntern () {
         },
         {
             type: 'input',
-            name: 'internoffice',
-            message: 'What is the office number of the employee?'
+            name: 'internschool',
+            message: 'What is the school of the employee?'
         }
     ]).then(answer => {
-        const manager = newmanager(answer.internname, answer.internid, answer.internemail, answer.internoffice)
+        const manager = newmanager(answer.internname, answer.internid, answer.internemail, answer.internschool)
         employees.push(intern);
         start()
     })
