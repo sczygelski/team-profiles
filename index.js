@@ -2,9 +2,10 @@ const Manager = require("./tests/manager.test")
 const Engineer = require("./tests/engineer.test")
 const Intern = require("./tests/intern.test")
 const template = require('./src/template.js')
-const renderEmployees = require("./src/team.html")
+//const renderEmployees = require("./src/team.html")
 const inquirer = require('inquirer')
 const fs = require('fs')
+const { ifError } = require("assert")
 
 const employees=[];
 start();
@@ -31,7 +32,7 @@ function start() {
 }
 
 function team() {
-    inquirer.createPromptModule([
+    inquirer.prompt([
         {
             type: 'list',
             name: 'job',
@@ -42,13 +43,12 @@ function team() {
                 'Intern',
             ]
         }
-    ]).then(function(data) {
-        const employeejob = data.role;
-        if (employeejob === 'Manager') {
+    ]).then((data) => {
+        if (data.job === 'Manager') {
             addManager();
-        } else if (employeejob === 'Engineer') {
+        } else if (job === 'Engineer') {
             addEngineer();
-        } else if (roleEmployee === 'Intern') {
+        } else if (job === 'Intern') {
             addIntern();
         }
     })
@@ -58,17 +58,17 @@ function addManager() {
     inquirer.prompt ([
         {
             type: 'input',
-            name: 'managername',
+            name: 'name',
             message: 'What is the name of the employee?'
         },
         {
             type: 'input',
-            name: 'managerid',
+            name: 'id',
             message: 'What is the id # of the employee?'
         },
         {
             type: 'input',
-            name: 'manageremail',
+            name: 'email',
             message: 'What is the email of the employee?'
         },
         {
@@ -77,7 +77,7 @@ function addManager() {
             message: 'What is the office number of the employee?'
         }
     ]).then(answer => {
-        const manager = newmanager(answer.managername, answer.managerid, answer.manageremail, answer.manageroffice)
+        const manager = newmanager(answer.name, answer.id, answer.email, answer.manageroffice)
         employees.push(manager);
         start()
     })
@@ -87,17 +87,17 @@ function addEngineer() {
     inquirer.prompt ([
         {
             type: 'input',
-            name: 'engineername',
+            name: 'name',
             message: 'What is the name of the employee?'
         },
         {
             type: 'input',
-            name: 'engineerid',
+            name: 'id',
             message: 'What is the id # of the employee?'
         },
         {
             type: 'input',
-            name: 'engineeremail',
+            name: 'email',
             message: 'What is the email of the employee?'
         },
         {
@@ -106,7 +106,7 @@ function addEngineer() {
             message: 'What is the GitHub username of the employee?'
         }
     ]).then(answer => {
-        const engineer = newengineer(answer.engineername, answer.engineerid, answer.engineeremail, answer.engineergithub)
+        const engineer = newengineer(answer.name, answer.id, answer.email, answer.engineergithub)
         employees.push(engineer);
         start()
     })
@@ -116,17 +116,17 @@ function addIntern () {
     inquirer.prompt ([
         {
             type: 'input',
-            name: 'internname',
+            name: 'name',
             message: 'What is the name of the employee?'
         },
         {
             type: 'input',
-            name: 'internid',
+            name: 'id',
             message: 'What is the id # of the employee?'
         },
         {
             type: 'input',
-            name: 'internemail',
+            name: 'email',
             message: 'What is the email of the employee?'
         },
         {
@@ -135,21 +135,21 @@ function addIntern () {
             message: 'What is the school of the employee?'
         }
     ]).then(answer => {
-        const manager = newmanager(answer.internname, answer.internid, answer.internemail, answer.internschool)
+        const manager = newmanager(answer.name, answer.id, answer.email, answer.internschool)
         employees.push(intern);
         start()
     })
 }
 
-function renderHTML(data) {
-    fs.writeFile("./dist/employees.html", JSON.stringify(data), function(err) {
-        if(err) {
-            console.log(err);
-        } else {
-            console.log('HTML has been created, go to the dist folder for file.')
-        }
-    })
-}
+// function renderHTML(data) {
+//     fs.writeFile("./dist/employees.html", JSON.stringify(data), function(err) {
+//         if(err) {
+//             console.log(err);
+//         } else {
+//             console.log('HTML has been created, go to the dist folder for file.')
+//         }
+//     })
+//}
 
 function init() {
     inquirer.prompt(start).then(data => {
