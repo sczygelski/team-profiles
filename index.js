@@ -2,15 +2,20 @@ const Manager = require("./tests/manager.test")
 const Engineer = require("./tests/engineer.test")
 const Intern = require("./tests/intern.test")
 const template = require('./src/template.js')
-//const renderEmployees = require("./src/team.html")
+const renderEmployees = require("./dist/index.html")
 const inquirer = require('inquirer')
 const fs = require('fs')
-const { ifError } = require("assert")
 
-const employees=[];
+
+class questions{
+    constructor() {
+        this.employees=[]
+    }
+} 
 start();
 
 function start() {
+    let employees = []
     inquirer.prompt ([
         {
             type: 'list',
@@ -26,10 +31,10 @@ function start() {
         if (startselection === 'Add') {
             team();
         } else if (startselection === 'Render') {
-            renderHTML();
+            writeFile();
         }
     }) 
-}
+
 
 function team() {
     inquirer.prompt([
@@ -76,12 +81,11 @@ function addManager() {
             name: 'manageroffice',
             message: 'What is the office number of the employee?'
         }
-    ]).then(answer => {
-        const manager = newmanager(answer.name, answer.id, answer.email, answer.manageroffice)
-        employees.push(manager);
+    ]).then(({ name, id, email, manageroffice}) => {
+        const manager = (name, id, email, manageroffice)
+        employees.push(manager)
         start()
     })
-}
 
 function addEngineer() {
     inquirer.prompt ([
@@ -135,24 +139,24 @@ function addIntern () {
             message: 'What is the school of the employee?'
         }
     ]).then(answer => {
-        const manager = newmanager(answer.name, answer.id, answer.email, answer.internschool)
+        const intern = newintern(answer.name, answer.id, answer.email, answer.internschool)
         employees.push(intern);
         start()
     })
 }
-
-// function renderHTML(data) {
-//     fs.writeFile("./dist/employees.html", JSON.stringify(data), function(err) {
-//         if(err) {
-//             console.log(err);
-//         } else {
-//             console.log('HTML has been created, go to the dist folder for file.')
-//         }
-//     })
-//}
-
-function init() {
-    inquirer.prompt(start).then(data => {
-        fs.writeFile('team.html', renderHTML(data))
-    })
 }
+
+function writeFile() {
+    then(data => {
+    const pageHTML = template(data)
+    fs.writeFile("./dist/index.html", pageHTML, function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log('HTML has been created, go to the dist folder for file.')
+        }
+    })
+})
+}
+const init = new questions();
+module.exports=questions;
