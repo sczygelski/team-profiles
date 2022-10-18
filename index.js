@@ -159,3 +159,4 @@ function writeFile() {
 })
 }
 const init = new questions();
+module.exports=questions
