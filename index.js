@@ -145,7 +145,7 @@ function addIntern () {
     })
 }
 }
-
+}
 function writeFile() {
     then(data => {
     const pageHTML = template(data)
@@ -159,4 +159,3 @@ function writeFile() {
 })
 }
 const init = new questions();
-module.exports=questions;
