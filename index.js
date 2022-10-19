@@ -2,7 +2,7 @@ const Manager = require("./tests/manager.test")
 const Engineer = require("./tests/engineer.test")
 const Intern = require("./tests/intern.test")
 const template = require('./src/template.js')
-const renderEmployees = require("./dist/index.html")
+//const renderEmployees = require("./dist/index.html")
 const inquirer = require('inquirer')
 const fs = require('fs')
 
@@ -147,8 +147,8 @@ function addIntern () {
 }
 }
 function writeFile() {
-    then(data => {
-    const pageHTML = template(data)
+
+    const pageHTML = template()
     fs.writeFile("./dist/index.html", pageHTML, function(err) {
         if(err) {
             console.log(err);
@@ -156,7 +156,7 @@ function writeFile() {
             console.log('HTML has been created, go to the dist folder for file.')
         }
     })
-})
+
 }
 const init = new questions();
 module.exports=questions

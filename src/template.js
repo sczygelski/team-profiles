@@ -1,6 +1,6 @@
 function generateHTML(data) {
     let employees = ``
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data; i++) {
        let extra = ``;
        if(data[i].getRole() === 'Manager'){
            extra=data[i].manageroffice()
