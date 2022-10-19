@@ -10,3 +10,6 @@ SO THAT I have quick access to their emails and GitHub profiles
 
 This application will allow you to enter various employees and output a spreadsheet with them.
 
+## Videos
+
+Videos are attached in the dist folder.
