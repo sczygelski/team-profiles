@@ -1,7 +1,8 @@
 const Engineer = require("../lib/engineer")
+//const Employee = require("../lib/employee")
 
 test("Role should return as Engineer", () => {
-    const testValue = "Engineer"
-    const e = new Engineer("Ava", "1", "ava@ava.com")
-    expect(e.getRole()).toBe(testValue)
+    //const engineergithub = "avagit"
+    const e = new Engineer("ava","1","ava@gmail.com", "avagit")
+    expect(e.getRole()).toBe("Engineer")
 })
